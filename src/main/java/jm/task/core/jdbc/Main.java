@@ -11,8 +11,8 @@ import java.sql.SQLException;
 public class Main {
     public static void main(String[] args) {
         // реализуйте алгоритм здесь
-        UserDaoJDBCImpl userDaoJDBC = new UserDaoJDBCImpl();
-        userDaoJDBC.createUsersTable();
-        userDaoJDBC.saveUser("Ivan", "Rudakov", (byte)32);
+        //UserDaoJDBCImpl userDaoJDBC = new UserDaoJDBCImpl();
+        //userDaoJDBC.createUsersTable();
+        //userDaoJDBC.saveUser("Ivan", "Rudakov", (byte)32);
     }
 }

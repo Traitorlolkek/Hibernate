@@ -16,6 +16,7 @@ public class UserDaoJDBCImpl implements UserDao {
         connection = Util.getConnection();
     }
 
+    @Override
     public void createUsersTable() {
         String sql = "CREATE TABLE IF NOT EXISTS users (id BIGINT PRIMARY KEY AUTO_INCREMENT, name VARCHAR(40) NOT NULL," +
                 " lastName VARCHAR(100) NOT NULL, age TINYINT NOT NULL)";
@@ -27,6 +28,7 @@ public class UserDaoJDBCImpl implements UserDao {
         }
     }
 
+    @Override
     public void dropUsersTable() {
         try (Statement statement = connection.createStatement()) {
             statement.execute("DROP TABLE IF EXISTS users");
@@ -35,6 +37,7 @@ public class UserDaoJDBCImpl implements UserDao {
         }
     }
 
+    @Override
     public void saveUser(String name, String lastName, byte age) {
         String sql = "INSERT INTO users (name, lastName, age) VALUES (?, ?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -48,6 +51,7 @@ public class UserDaoJDBCImpl implements UserDao {
         }
     }
 
+    @Override
     public void removeUserById(long id) {
         try (PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM users WHERE  id = ?")){
             preparedStatement.setLong(1, id);
@@ -57,6 +61,7 @@ public class UserDaoJDBCImpl implements UserDao {
         }
     }
 
+    @Override
     public List<User> getAllUsers() {
         List<User> users = new ArrayList<>();
         try (Statement statement = connection.createStatement();
@@ -76,6 +81,7 @@ public class UserDaoJDBCImpl implements UserDao {
         return users;
     }
 
+    @Override
     public void cleanUsersTable() {
         try (Statement statement = connection.createStatement()){
             statement.executeUpdate("TRUNCATE TABLE users");
