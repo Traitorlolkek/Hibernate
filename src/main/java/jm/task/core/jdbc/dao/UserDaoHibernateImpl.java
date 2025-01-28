@@ -10,7 +10,6 @@ import org.hibernate.SessionFactory;
 import java.util.List;
 import java.util.Set;
 
-@SuppressWarnings("JpaQlInspection")
 public class UserDaoHibernateImpl implements UserDao {
 
     public UserDaoHibernateImpl() {
@@ -25,6 +24,8 @@ public class UserDaoHibernateImpl implements UserDao {
             session.createNativeQuery(sql).executeUpdate();
             session.getTransaction().commit();
             System.out.println("таблица создана");
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -70,17 +71,22 @@ public class UserDaoHibernateImpl implements UserDao {
                 System.out.println("Пользователь с id " + id + " не найден.");
             }
             session.getTransaction().commit();
+        }catch (HibernateException e) {
+            e.printStackTrace();
         }
     }
 
     @Override
     public List<User> getAllUsers() {
+        List<User> list = null;
         try(Session session = Util.getSessionFactory().openSession()) {
             session.beginTransaction();
-            List<User> list = session.createQuery("from User", User.class).getResultList();
+            list = session.createQuery("from User", User.class).getResultList();
             session.getTransaction().commit();
-            return list;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        return list;
     }
 
     @Override
@@ -90,6 +96,8 @@ public class UserDaoHibernateImpl implements UserDao {
             session.createQuery("delete from User").executeUpdate();
             session.getTransaction().commit();
             System.out.println("Таблица очищена.");
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
